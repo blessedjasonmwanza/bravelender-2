@@ -50,11 +50,12 @@
   --bg-blue-ultralight--darken-3: #e3e9f0;
   --bg-red--darken-4: #a82723;
   --bg-gray-dark--darken-25: #545454;
-  --nav-height: 40px;
+  --top-nav-height: 40px;
   --main-nav-width: 200px;
+  --main-nav-width-min: 65px;
   --data-entry-menu-height: 160px;
   --theme2-bg: #e9e8e8;
-  --logo-font: 'Baloo Tammudu 2', "arial", cursive, arial ,cambria, 'Courier New', Courier, monospace;
+  --logo-font: 'Baloo Tammudu 2', "arial", cursive, arial, cambria, 'Courier New', Courier, monospace;
   --orange-2: #ff4500;
 }
 body {
@@ -64,6 +65,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: rgb(40, 40, 41);
 }
 
 code {

@@ -1,5 +1,16 @@
 @import "rsuite/dist/rsuite.css";
 
+* a:hover{
+  text-decoration: none;
+  color: initial;
+}
+body{
+  background: var(--theme2-bg);
+  /* background: var(--bg-gray); */
+  padding: 0px;
+  margin: 0px;
+  table-layout: fixed;
+}
 .nav-logo{
   display: block;
   width: 35px;
@@ -9,11 +20,11 @@
   margin-top: 5px;
 }
 
-.brand-nav-name {
+.brand-branch-name {
   text-align: center;
   margin: 0 auto;
-  color: #43a047;
-  margin-top: 16px;
+  color: var(--text-gray);
+  margin-top: 10px;
   font-family: var(--logo-font);
   /* margin-left: 15px; */
   padding: 0;
@@ -21,20 +32,71 @@
   cursor:context-menu;
 }
 .main-nav{
-  width: var(--main-nav-width);
   display: flex;
   position: fixed;
   flex-direction: column;
   overflow-x: hidden;
   overflow-y: auto;
+  height: calc(100vh - var(--top-nav-height));
 }
 
 .main-nav > nav{
   padding: 0px;
-  border: 0 0 2px 2px solid #dee0e1;
+  border: 2px solid #dee0e1;
   background-color: var(--bg-white--darken-1);
   margin-left: -1px;
-  border-right: 1px solid #dee0e159;
+  border-right: 0px solid #dee0e159;
+}
+
+.top-nav{
+  box-sizing: border-box;
+  position: fixed;
+  top: 0px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: row;
+  width: 100%;
+  /* box-shadow: 0 3px 6px #0000000a; */
+  /* box-shadow: 0px 6px 14px 0px #0000003d; */
+  box-shadow: 0px 1px 20px 0px #1f1e1e45;
+  /* border: 1px solid #dee0e1!important; */
+  height: var(--top-nav-height);
+  background: var(--bg-white);
+  /* background: var(--theme2-bg); */
+  justify-content: space-between;
+  padding: 0px 0px;
+  padding-right: 5px;
+  color: var(--text-gray-light);
+  z-index: 999;
+  overflow: hidden;
+}
+.logo-name {
+  font-size: 2em;
+  color: #43a047;
+  display: inline-flex;
+  margin-top: 16px;
+  font-family: var(--logo-font);
+  margin-left: 1px;
+}
+
+.logo-name:hover{
+  color: #43a047;
+  text-decoration: none;
+}
+
+main{
+  display: flex;
+  min-height: calc(99vh - var(--top-nav-height));
+  flex-direction: column;
+  /* min-height: fit-content; */
+  margin: 0px;
+  margin-top: var(--top-nav-height);
+  padding: 0px;
+  padding-top: 10px;
+  /* border: 1px solid red; */
+  margin-left: calc(4px + var(--main-nav-width));
+  width: calc(100vw - (4px + var(--main-nav-width))); 
 }
 /* OVERIDES */
 

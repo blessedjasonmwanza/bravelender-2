@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Sidenav, Nav } from 'rsuite';
 import HomeIcon from '@rsuite/icons/legacy/Home';
 import UserPlus from '@rsuite/icons/legacy/UserPlus';
@@ -10,26 +10,54 @@ import PageIcon from '@rsuite/icons/Page';
 import UserInfo from '@rsuite/icons/legacy/UserInfo';
 import GearCircleIcon from '@rsuite/icons/legacy/GearCircle';
 import { Site } from '@rsuite/icons';
-import logo from '../../assets/img/favicon.png';
 
 const panelStyles = {
-  padding: '5px 20px',
-  color: '#aaa',
+  padding: '2px 20px',
+  fontSize: 11,
+  textAlign:'center',
+  color: '#777',
   borderBottom: '1px solid #dee0e159',
+  background: 'rgb(233 232 232 / 80%)'
 };
 
-export default function LeftNav() {
-  const [expanded, setExpanded] = useState(true)
+export default function LeftNav({expanded, setExpanded}) {
+  const logo = 'favicon.png';
+  const mainNavStyle ={
+    expanded: {
+      width: 'var(--main-nav-width)',
+    },
+    minimized: {
+      width: 'var(--main-nav-width-min)',
+    }
+  }
+  window.addEventListener('resize', ()=>{
+    if(window.innerWidth < 780){
+      setExpanded(false);
+    }else{
+      setExpanded(() => true);
+    }
+  });
+  useEffect(()=>{
+    if(window.innerWidth <780){
+      setExpanded(() => false);
+    }else{
+      setExpanded(() => true);
+    }
+  }, []);
   return (
-  <div style={{ width: 200, height: '100vh'}} className="main-nav">
+  <div style={
+    expanded ?
+    mainNavStyle.expanded:
+    mainNavStyle.minimized
+  } className="main-nav">
     <Sidenav expanded={expanded} defaultOpenKeys={[]} style={{height: '100%'}}>
-      <Sidenav.Header>
+      <Sidenav.Header >
         {
           expanded ?
-          <h4 className='brand-nav-name' onClick={() => setExpanded(!expanded)} >
-            BraveLender
+          <h4 className='brand-branch-name' >
+            Mwinilunga Branch
           </h4> :
-          <img src={logo} className='nav-logo' alt='logo' onClick={() => setExpanded(!expanded)} />
+          <img src={logo} className='nav-logo' alt='logo' />
         }
       </Sidenav.Header>
       <Sidenav.Body>
@@ -41,7 +69,7 @@ export default function LeftNav() {
           {
             expanded &&
             <Nav.Item panel style={panelStyles}>
-              Data Entry
+              {/* Data Entry */}
             </Nav.Item>
           }
           <Nav.Menu eventKey="2" title="Add Clients" icon={<UserPlus />}>
@@ -65,7 +93,7 @@ export default function LeftNav() {
           {
             expanded &&
             <Nav.Item panel style={panelStyles}>
-              Operations
+              {/* Operations */}
             </Nav.Item>
           }
 
@@ -83,12 +111,12 @@ export default function LeftNav() {
             Expenses
           </Nav.Item>
 
-          <hr  style={{margin: 0}}/>
+          {/* <hr  style={{margin: 0}}/> */}
           {
-            expanded &&
-            <Nav.Item panel style={panelStyles}>
-              Accounts
-            </Nav.Item>
+            // expanded &&
+            // <Nav.Item panel style={panelStyles}>
+            //   Accounts
+            // </Nav.Item>
           }
           <Nav.Menu eventKey="8" title="Statements" icon={<Site />}>
           <Nav.Item eventKey="8-1" icon={<MagicIcon />} title='Give a to an Individual'>Income Stmt</Nav.Item>
@@ -100,7 +128,7 @@ export default function LeftNav() {
           {
             expanded &&
             <Nav.Item panel style={panelStyles}>
-              Configurations
+              {/* Configurations */}
             </Nav.Item>
           }
           <Nav.Menu eventKey="4" title="Settings" icon={<GearCircleIcon />}>
