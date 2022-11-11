@@ -1,38 +1,85 @@
-.App {
+@import "rsuite/dist/rsuite.css";
+
+.nav-logo{
+  display: block;
+  width: 35px;
+  max-width: 50px;
+  margin: 0 auto;
+  cursor: context-menu;
+  margin-top: 5px;
+}
+
+.brand-nav-name {
   text-align: center;
+  margin: 0 auto;
+  color: #43a047;
+  margin-top: 16px;
+  font-family: var(--logo-font);
+  /* margin-left: 15px; */
+  padding: 0;
+  overflow: hidden;
+  cursor:context-menu;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main-nav{
+  width: var(--main-nav-width);
   display: flex;
+  position: fixed;
   flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.main-nav > nav{
+  padding: 0px;
+  border: 0 0 2px 2px solid #dee0e1;
+  background-color: var(--bg-white--darken-1);
+  margin-left: -1px;
+  border-right: 1px solid #dee0e159;
+}
+/* OVERIDES */
+
+.rs-sidenav-nav > .rs-sidenav-item,
+.rs-sidenav-nav > .rs-dropdown .rs-dropdown-toggle{
+  /* width: 100%; */
+  border-bottom: 1px solid var(--border-gray);
+  /* padding: 10px 0; */
+  height: min-content;
+  cursor: pointer;
+  /* padding-left: 5px; */
+  border-right: 0 solid transparent;
+  max-height: 40px;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-content: center;
+  /* overflow: hidden; */
+  background-color: #fff;
+  font-size: 13px;
+}
+.rs-sidenav-default {
+  background-color: #fff;
 }
 
-.App-link {
-  color: #61dafb;
+/* SCROLL BAR */
+
+*::-webkit-scrollbar-track
+{
+	--webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+    background-color: hsla(0, 0%, 96%, 0.63);
+    margin-bottom: 1px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+*::-webkit-scrollbar
+{
+    width: 5px;
+    height: 5px;
+    background-color: rgba(245, 245, 245, 0.068);
+    margin-bottom: 1px;
+}
+
+*::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	--webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: rgba(4, 196, 106, 0.855);
+    margin-bottom: 1px;
 }
