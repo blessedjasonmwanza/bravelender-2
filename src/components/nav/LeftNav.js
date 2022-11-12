@@ -51,7 +51,7 @@ export default function LeftNav({expanded, setExpanded}) {
     mainNavStyle.minimized
   } className="main-nav">
     <Sidenav expanded={expanded} defaultOpenKeys={[]} style={{height: '100%'}}>
-      <Sidenav.Header >
+      {/* <Sidenav.Header >
         {
           expanded ?
           <h4 className='brand-branch-name' >
@@ -59,7 +59,7 @@ export default function LeftNav({expanded, setExpanded}) {
           </h4> :
           <img src={logo} className='nav-logo' alt='logo' />
         }
-      </Sidenav.Header>
+      </Sidenav.Header> */}
       <Sidenav.Body>
         <Nav>
           <Nav.Item eventKey="1" icon={<HomeIcon />} active>

@@ -4,12 +4,14 @@ import LeftNav from './components/nav/LeftNav';
 import { useState } from 'react';
 import TopNav from './components/nav/TopNav';
 import { signal } from '@preact/signals';
+import LoanCalculators from './components/LoanCalculators';
 
 function App() {
   const loggedIn = signal(true);
   const [expanded, setExpanded] = useState(true)
   return (
     <>
+    <Router>
     <TopNav />
       <LeftNav expanded={expanded} setExpanded={setExpanded} />
       <main style={
@@ -23,9 +25,13 @@ function App() {
           width : 'calc(100vw - (2px + var(--main-nav-width-min)))'
         }
       }>
-        Main content
+        <Routes>
+          <Route path='/' element={<LoanCalculators />} />
+        </Routes>
 
       </main>
+
+    </Router>
     </>
   );
 }
