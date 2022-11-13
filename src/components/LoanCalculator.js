@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, ButtonToolbar, DatePicker, Form, InputNumber, Panel, Schema, SelectPicker } from 'rsuite'
 import { DateUtils } from 'rsuite/esm/utils';
 import { once_off } from '../data/LoanCalculations';
+import numberFormat from '../utils/numberFomart';
 import LoanRepayments from './Tables/LoanRepayments';
 
 const { StringType, NumberType } = Schema.Types;
@@ -48,12 +49,12 @@ export default function CompoundLoanCalculator() {
           id: 0,
           amount: 0.00,
           date: '',
-          balance: (totalBalance).toFixed(2)
+          balance: numberFormat(totalBalance)
         });
         if(time === 1 || inputFields.paymentPlan === 'once_off'){
           tempData.push({
             id: 1,
-            amount: (totalBalance).toFixed(2),
+            amount: numberFormat(totalBalance),
             date: '',
             balance: 0
           });
@@ -64,9 +65,9 @@ export default function CompoundLoanCalculator() {
             reducingBalance -= amount;
             tempData.push({
               id: i+1,
-              amount: amount.toFixed(2),
+              amount: numberFormat(amount),
               date: '',
-              balance: Math.abs(reducingBalance).toFixed(2)
+              balance: numberFormat(reducingBalance)
             });
           });
         }
@@ -82,12 +83,12 @@ export default function CompoundLoanCalculator() {
           id: 0,
           amount: 0.00,
           date: '',
-          balance: (totalBalance).toFixed(2)
+          balance: numberFormat(totalBalance)
         });
         if(time === 1){
           tempData.push({
             id: 1,
-            amount: (totalBalance).toFixed(),
+            amount: numberFormat(totalBalance),
             date: '',
             balance: 0
           });
@@ -98,9 +99,9 @@ export default function CompoundLoanCalculator() {
             reducingBalance -= amount;
             tempData.push({
               id: i+1,
-              amount: Math.abs(amount).toFixed(2),
+              amount: numberFormat(Math.abs(amount)),
               date: '',
-              balance: Math.abs(reducingBalance).toFixed(2)
+              balance: numberFormat(Math.abs(reducingBalance))
             });
           });
         }
