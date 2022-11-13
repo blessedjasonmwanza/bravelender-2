@@ -33,6 +33,7 @@ export default function CompoundLoanCalculator() {
   }, [inputFields]);
 
   const CalculateCompound = () =>{
+    // console.log(inputFields);
     if(inputFields.principal && inputFields.principal !== undefined && 
       inputFields.interest && inputFields.interest !== undefined && 
       inputFields.time && inputFields.time !== undefined &&
@@ -85,7 +86,7 @@ export default function CompoundLoanCalculator() {
           date: '',
           balance: numberFormat(totalBalance)
         });
-        if(time === 1){
+        if(time === 1 || inputFields.paymentPlan === 'once_off'){
           tempData.push({
             id: 1,
             amount: numberFormat(totalBalance),
@@ -176,7 +177,7 @@ export default function CompoundLoanCalculator() {
               onSelect={(value) =>  (setInputFields((curr) => ({...curr, paymentPlan: value})))}
               name="repaymentPlan" accepter={SelectPicker} data={repaymentPlanData} style={{ width: 160 }} placeholder='Select Plan' />
           </Form.Group>
-          <Form.Group controlId="disbursement-date-7">
+          {/* <Form.Group controlId="disbursement-date-7">
             <Form.HelpText>
               Start date
               <Form.HelpText tooltip>Loan activation date / day when loan duration should begin counting</Form.HelpText>
@@ -184,7 +185,7 @@ export default function CompoundLoanCalculator() {
             <Form.Control
               onChange={(val) => (setInputFields((curr) => ({...curr, date: val})))}
               name="startDate" style={{ width: 160 }} accepter={DatePicker} />
-          </Form.Group>
+          </Form.Group> */}
           <hr />
           <ButtonToolbar>
             <Button appearance="primary" type="submit">

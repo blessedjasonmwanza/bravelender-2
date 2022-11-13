@@ -3,7 +3,6 @@ import { Table } from 'rsuite';
 const { Column, HeaderCell, Cell } = Table;
 
 export default function LoanRepayments({data}) {
-  console.log(data);
   return (
     <Table
       height={400}
@@ -20,10 +19,10 @@ export default function LoanRepayments({data}) {
         <Cell dataKey="amount" />
       </Column>
 
-      <Column minWidth={200} flexGrow={2}>
+      {/* <Column minWidth={200} flexGrow={2}>
         <HeaderCell>Payment Date</HeaderCell>
         <Cell dataKey="date" />
-      </Column>
+      </Column> */}
 
       <Column minWidth={200}  flexGrow={1}>
         <HeaderCell>Balance</HeaderCell>
