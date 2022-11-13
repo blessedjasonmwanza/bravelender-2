@@ -121,6 +121,9 @@ main{
 .rs-sidenav-default {
   background-color: #fff;
 }
+.rs-dropdown li, .rs-dropdown-menu li {
+  margin-left: -20px;
+}
 
 /* MSC */
 

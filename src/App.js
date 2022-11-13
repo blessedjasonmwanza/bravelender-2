@@ -4,7 +4,7 @@ import LeftNav from './components/nav/LeftNav';
 import { useState } from 'react';
 import TopNav from './components/nav/TopNav';
 import { signal } from '@preact/signals';
-import LoanCalculators from './components/LoanCalculators';
+import Start from './pages/Start';
 
 function App() {
   const loggedIn = signal(true);
@@ -26,7 +26,7 @@ function App() {
         }
       }>
         <Routes>
-          <Route path='/' element={<LoanCalculators />} />
+          <Route path='/' element={<Start />} />
         </Routes>
 
       </main>
