@@ -5,12 +5,12 @@ import { once_off } from '../data/LoanCalculations';
 import numberFormat from '../utils/numberFomart';
 import LoanRepayments from './Tables/LoanRepayments';
 
-const { StringType, NumberType } = Schema.Types;
+const { StringType, NumberType, DateType } = Schema.Types;
 const model = Schema.Model({
   principle: NumberType().isRequired('This field is required.'),
   interest: NumberType().isRequired('This field is required.'),
   duration: NumberType().isRequired('This field is required.'),
-  // startDate: MixedType().isRequired('This field is required.'),
+  startDate: DateType().isRequired('This field is required.'),
   chargeCriteria: StringType().isRequired('This field is required.'),
   repaymentPlan: StringType().isRequired('This field is required.'),
     
@@ -132,8 +132,8 @@ export default function CompoundLoanCalculator() {
           </Form.Group>
           <Form.Group controlId="interest-fee-7">
             <Form.HelpText>
-              Interest fee
-              <Form.HelpText tooltip>How much interest is to be charged per month or for the entire loan (Check Charge Criteria) </Form.HelpText>
+              Interest rate (%)
+              <Form.HelpText tooltip>How much interest fee (in % - percentage) is to be charged per month or for the entire loan (Check monetization Criteria) </Form.HelpText>
             </Form.HelpText>
             <Form.Control
             onChange={(val) => (setInputFields((curr) => ({...curr, interest: val})))}
@@ -177,7 +177,7 @@ export default function CompoundLoanCalculator() {
               onSelect={(value) =>  (setInputFields((curr) => ({...curr, paymentPlan: value})))}
               name="repaymentPlan" accepter={SelectPicker} data={repaymentPlanData} style={{ width: 160 }} placeholder='Select Plan' />
           </Form.Group>
-          {/* <Form.Group controlId="disbursement-date-7">
+          <Form.Group controlId="disbursement-date-7">
             <Form.HelpText>
               Start date
               <Form.HelpText tooltip>Loan activation date / day when loan duration should begin counting</Form.HelpText>
@@ -185,7 +185,7 @@ export default function CompoundLoanCalculator() {
             <Form.Control
               onChange={(val) => (setInputFields((curr) => ({...curr, date: val})))}
               name="startDate" style={{ width: 160 }} accepter={DatePicker} />
-          </Form.Group> */}
+          </Form.Group>
           <hr />
           <ButtonToolbar>
             <Button appearance="primary" type="submit">
