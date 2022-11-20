@@ -74,8 +74,8 @@ export default function LeftNav({expanded, setExpanded}) {
           }
           <Nav.Menu eventKey="2" title="Add Clients" icon={<UserPlus />}>
             <Nav.Item eventKey="2-1" icon={<UserInfo />}>Borrower</Nav.Item>
-            <Nav.Item eventKey="2-3" icon={<PeoplesCostomizeIcon />}>Create Group</Nav.Item>
-            <Nav.Item eventKey="2-4" icon={<PageIcon />} >Create Contract</Nav.Item>
+            <Nav.Item eventKey="2-3" icon={<PeoplesCostomizeIcon />}>Group</Nav.Item>
+            <Nav.Item eventKey="2-4" icon={<PageIcon />} >MOU Contract</Nav.Item>
           </Nav.Menu>
           <Nav.Menu eventKey="3" title="New Loan" icon={<PencilSquare />}>
             <Nav.Item eventKey="3-1" icon={<UserInfo />} title='Give a to an Individual'>Personal Loan</Nav.Item>

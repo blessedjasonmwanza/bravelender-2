@@ -1,3 +1,5 @@
+import { signal } from '@preact/signals';
+import { addMonths, format } from 'date-fns';
 import React, { useEffect, useState } from 'react'
 import { Button, ButtonToolbar, DatePicker, Form, InputNumber, Panel, Schema, SelectPicker } from 'rsuite'
 import { DateUtils } from 'rsuite/esm/utils';
@@ -6,19 +8,20 @@ import numberFormat from '../utils/numberFomart';
 import LoanRepayments from './Tables/LoanRepayments';
 
 const { StringType, NumberType, DateType } = Schema.Types;
+const requiredMsg = 'This field is required.';
 const model = Schema.Model({
-  principle: NumberType().isRequired('This field is required.'),
-  interest: NumberType().isRequired('This field is required.'),
-  duration: NumberType().isRequired('This field is required.'),
-  startDate: DateType().isRequired('This field is required.'),
-  chargeCriteria: StringType().isRequired('This field is required.'),
-  repaymentPlan: StringType().isRequired('This field is required.'),
-    
+  principle: NumberType().isRequired(requiredMsg),
+  interest: NumberType().isRequired(requiredMsg),
+  duration: NumberType().isRequired(requiredMsg),
+  startDate: DateType().isRequired(requiredMsg),
+  chargeCriteria: StringType().isRequired(requiredMsg),
+  repaymentPlan: StringType().isRequired(requiredMsg), 
 });
 
 export default function CompoundLoanCalculator() {
   const [calculating, setCalculating] = useState(false);
   const [inputFields, setInputFields] = useState({});
+  const paymentDate = signal(inputFields.date);
   const [data, setData] = useState([]);
   const ChargeTypeData = [
     {label:'Simple interest', value:'simple'},
@@ -38,7 +41,8 @@ export default function CompoundLoanCalculator() {
       inputFields.interest && inputFields.interest !== undefined && 
       inputFields.time && inputFields.time !== undefined &&
       inputFields.paymentPlan && inputFields.paymentPlan !== undefined&&
-      inputFields.criteria && inputFields.criteria !== undefined){
+      inputFields.criteria && inputFields.criteria !== undefined &&
+      inputFields.date && inputFields.date !== undefined){
       const principal = parseFloat(inputFields.principal);
       const time = parseInt(inputFields.time);
       let rate = parseFloat(inputFields.interest);
@@ -47,28 +51,29 @@ export default function CompoundLoanCalculator() {
       if(inputFields.criteria === 'simple'){
         const totalBalance = principal + ((rate/100) * principal);
         tempData.push({
-          id: 0,
-          amount: 0.00,
-          date: '',
+          id: '-',
+          amount: '-',
+          date: '-',
           balance: numberFormat(totalBalance)
         });
         if(time === 1 || inputFields.paymentPlan === 'once_off'){
           tempData.push({
             id: 1,
             amount: numberFormat(totalBalance),
-            date: '',
-            balance: 0
+            date: format(addMonths(inputFields.date, inputFields.time), 'eee, eo LLL, yyyy').toString(),
+            balance: '-'
           });
         }else{
           const inst = Array(time).fill(totalBalance/time);
           let reducingBalance = totalBalance;
           inst.forEach((amount, i) =>{
             reducingBalance -= amount;
+            paymentDate.value = addMonths(paymentDate.value,  1);
             tempData.push({
               id: i+1,
               amount: numberFormat(amount),
-              date: '',
-              balance: numberFormat(reducingBalance)
+              date: format(paymentDate.value, 'eee, eo LLL, yyyy').toString(),
+              balance: numberFormat(Math.abs(reducingBalance))
             });
           });
         }
@@ -81,27 +86,28 @@ export default function CompoundLoanCalculator() {
         const compounded = compoundInterest(principal, time, rate);
         const totalBalance = compounded + principal;
         tempData.push({
-          id: 0,
-          amount: 0.00,
-          date: '',
-          balance: numberFormat(totalBalance)
+          id: '-',
+          amount: '-',
+          date: '-',
+          balance: numberFormat(Math.abs(totalBalance))
         });
         if(time === 1 || inputFields.paymentPlan === 'once_off'){
           tempData.push({
             id: 1,
             amount: numberFormat(totalBalance),
-            date: '',
-            balance: 0
+            date: format(addMonths(inputFields.date, inputFields.time), 'eee, eo LLL, yyyy').toString(),
+            balance: '-'
           });
         }else{
           const inst = Array(time).fill(totalBalance/time);
           let reducingBalance = totalBalance;
           inst.forEach((amount, i) =>{
             reducingBalance -= amount;
+            paymentDate.value = addMonths(paymentDate.value, 1);
             tempData.push({
               id: i+1,
               amount: numberFormat(Math.abs(amount)),
-              date: '',
+              date: format(paymentDate.value, 'eee, eo LLL, yyyy').toString(),
               balance: numberFormat(Math.abs(reducingBalance))
             });
           });
@@ -127,6 +133,7 @@ export default function CompoundLoanCalculator() {
               <Form.HelpText tooltip>Principle amount (Amount customer is asking for)</Form.HelpText>
             </Form.HelpText>
             <Form.Control 
+            defaultValue={inputFields.principal ? inputFields.principal: null }
             onChange={(val) => (setInputFields((curr) => ({...curr, principal: val})))}
             name="principle"placeholder='1' title='Principle Amount' style={{ width: 160 }} step={0.01} accepter={InputNumber} min={1}/>
           </Form.Group>
@@ -136,6 +143,7 @@ export default function CompoundLoanCalculator() {
               <Form.HelpText tooltip>How much interest fee (in % - percentage) is to be charged per month or for the entire loan (Check monetization Criteria) </Form.HelpText>
             </Form.HelpText>
             <Form.Control
+            defaultValue={inputFields.interest ? inputFields.interest: null }
             onChange={(val) => (setInputFields((curr) => ({...curr, interest: val})))}
             name="interest" placeholder='0%' title='Interest Fee' style={{ width: 160 }} step={0.01} accepter={InputNumber} min={0}/>
           </Form.Group>
@@ -145,6 +153,7 @@ export default function CompoundLoanCalculator() {
               <Form.HelpText tooltip>Loan Duration (How many months should it take for this loan to be settled)</Form.HelpText>
             </Form.HelpText>
             <Form.Control
+            defaultValue={inputFields.time ? inputFields.time: null }
             onChange={(val) => (setInputFields((curr) => ({...curr, time: val})))}
             name="duration" placeholder='1' title='duration (Months)' style={{ width: 160 }} accepter={InputNumber} min={1}/>
             
@@ -183,6 +192,7 @@ export default function CompoundLoanCalculator() {
               <Form.HelpText tooltip>Loan activation date / day when loan duration should begin counting</Form.HelpText>
             </Form.HelpText>
             <Form.Control
+              defaultValue={inputFields.date ? inputFields.date: null }
               onChange={(val) => (setInputFields((curr) => ({...curr, date: val})))}
               name="startDate" style={{ width: 160 }} accepter={DatePicker} />
           </Form.Group>
