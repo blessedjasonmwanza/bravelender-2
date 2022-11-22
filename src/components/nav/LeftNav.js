@@ -10,6 +10,7 @@ import PageIcon from '@rsuite/icons/Page';
 import UserInfo from '@rsuite/icons/legacy/UserInfo';
 import GearCircleIcon from '@rsuite/icons/legacy/GearCircle';
 import { Site } from '@rsuite/icons';
+import { useNavigate } from 'react-router-dom';
 
 const panelStyles = {
   padding: '2px 20px',
@@ -21,7 +22,7 @@ const panelStyles = {
 };
 
 export default function LeftNav({expanded, setExpanded}) {
-  const logo = 'favicon.png';
+  const navTo = useNavigate();
   const mainNavStyle ={
     expanded: {
       width: 'var(--main-nav-width)',
@@ -46,11 +47,12 @@ export default function LeftNav({expanded, setExpanded}) {
   }, []);
   return (
   <div style={
-    expanded ?
-    mainNavStyle.expanded:
-    mainNavStyle.minimized
+    mainNavStyle.expanded
+    // expanded ?
+    // mainNavStyle.expanded:
+    // mainNavStyle.minimized
   } className="main-nav">
-    <Sidenav expanded={expanded} defaultOpenKeys={[]} style={{height: '100%'}}>
+    <Sidenav  defaultOpenKeys={[]} style={{height: '100%'}}>
       {/* <Sidenav.Header >
         {
           expanded ?
@@ -62,7 +64,7 @@ export default function LeftNav({expanded, setExpanded}) {
       </Sidenav.Header> */}
       <Sidenav.Body>
         <Nav>
-          <Nav.Item eventKey="1" icon={<HomeIcon />} active>
+          <Nav.Item onClick={() => navTo('/')} eventKey="1" icon={<HomeIcon />}>
             Home
           </Nav.Item>
           <hr  style={{margin: 0}}/>
@@ -73,7 +75,7 @@ export default function LeftNav({expanded, setExpanded}) {
             </Nav.Item>
           }
           <Nav.Menu eventKey="2" title="Add Clients" icon={<UserPlus />}>
-            <Nav.Item eventKey="2-1" icon={<UserInfo />}>Borrower</Nav.Item>
+            <Nav.Item onClick={() => navTo('add-borrower')} eventKey="2-1" icon={<UserInfo />}>Borrower</Nav.Item>
             <Nav.Item eventKey="2-3" icon={<PeoplesCostomizeIcon />}>Group</Nav.Item>
             <Nav.Item eventKey="2-4" icon={<PageIcon />} >MOU Contract</Nav.Item>
           </Nav.Menu>

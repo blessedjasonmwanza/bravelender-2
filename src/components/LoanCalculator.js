@@ -2,8 +2,6 @@ import { signal } from '@preact/signals';
 import { addMonths, format } from 'date-fns';
 import React, { useEffect, useState } from 'react'
 import { Button, ButtonToolbar, DatePicker, Form, InputNumber, Panel, Schema, SelectPicker } from 'rsuite'
-import { DateUtils } from 'rsuite/esm/utils';
-import { once_off } from '../data/LoanCalculations';
 import numberFormat from '../utils/numberFomart';
 import LoanRepayments from './Tables/LoanRepayments';
 
@@ -19,7 +17,6 @@ const model = Schema.Model({
 });
 
 export default function CompoundLoanCalculator() {
-  const [calculating, setCalculating] = useState(false);
   const [inputFields, setInputFields] = useState({});
   const paymentDate = signal(inputFields.date);
   const [data, setData] = useState([]);
@@ -114,13 +111,12 @@ export default function CompoundLoanCalculator() {
         }
       }
       setData(() => tempData);
-      setCalculating(() => true)
     }
   }
 
   return (
     <>
-      <Panel header="Loan Calculator &nbsp; &nbsp; &nbsp; &nbsp;" shaded collapsible className='bg-white' style={{margin: '0 auto',textAlign:'center', minWidth: '95%'}}>
+      <Panel header="Loan Calculator &nbsp; &nbsp; &nbsp; &nbsp;" shaded collapsible className='bg-white panel'>
         {/* <Placeholder.Paragraph /> */}
         <hr />
         <Form layout="inline" fluid={true} 

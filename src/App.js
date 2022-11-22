@@ -4,7 +4,8 @@ import LeftNav from './components/nav/LeftNav';
 import { useState } from 'react';
 import TopNav from './components/nav/TopNav';
 import { signal } from '@preact/signals';
-import Start from './pages/Start';
+import AddBorrower from './pages/AddBorrower';
+import Home from './pages/Home';
 
 function App() {
   const loggedIn = signal(true);
@@ -15,18 +16,20 @@ function App() {
     <TopNav />
       <LeftNav expanded={expanded} setExpanded={setExpanded} />
       <main style={
-        expanded ?
+        // expanded ?
         {
           marginLeft: 'calc(2px + var(--main-nav-width))',
           width : 'calc(100vw - (2px + var(--main-nav-width)))'
-        } : 
-        {
-          marginLeft: 'calc(2px + var(--main-nav-width-min))',
-          width : 'calc(100vw - (2px + var(--main-nav-width-min)))'
-        }
+        } 
+        // : 
+        // {
+        //   marginLeft: 'calc(2px + var(--main-nav-width-min))',
+        //   width : 'calc(100vw - (2px + var(--main-nav-width-min)))'
+        // }
       }>
         <Routes>
-          <Route path='/' element={<Start />} />
+          <Route path='/' element={<Home />} />
+          <Route path='add-borrower' element={<AddBorrower />} />
         </Routes>
 
       </main>
