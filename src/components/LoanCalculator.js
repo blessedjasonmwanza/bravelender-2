@@ -8,7 +8,7 @@ import LoanRepayments from './Tables/LoanRepayments';
 const { StringType, NumberType, DateType } = Schema.Types;
 const requiredMsg = 'This field is required.';
 const model = Schema.Model({
-  principle: NumberType().isRequired(requiredMsg),
+  principal: NumberType().isRequired(requiredMsg),
   interest: NumberType().isRequired(requiredMsg),
   duration: NumberType().isRequired(requiredMsg),
   startDate: DateType().isRequired(requiredMsg),
@@ -123,15 +123,15 @@ export default function CompoundLoanCalculator() {
           model={model}
           onSubmit={((e) => {CalculateCompound()})}
         >
-          <Form.Group controlId="principle-7" >
+          <Form.Group controlId="principal-7" >
             <Form.HelpText>
-              Principle Amount 
-              <Form.HelpText tooltip>Principle amount (Amount customer is asking for)</Form.HelpText>
+              principal Amount 
+              <Form.HelpText tooltip>principal amount (Amount customer is asking for)</Form.HelpText>
             </Form.HelpText>
             <Form.Control 
             defaultValue={inputFields.principal ? inputFields.principal: null }
             onChange={(val) => (setInputFields((curr) => ({...curr, principal: val})))}
-            name="principle"placeholder='1' title='Principle Amount' style={{ width: 160 }} step={0.01} accepter={InputNumber} min={1}/>
+            name="principal"placeholder='1' title='principal Amount' style={{ width: 160 }} step={0.01} accepter={InputNumber} min={1}/>
           </Form.Group>
           <Form.Group controlId="interest-fee-7">
             <Form.HelpText>
@@ -172,7 +172,7 @@ export default function CompoundLoanCalculator() {
             <Form.HelpText>
               Repayment plan
               <Form.HelpText tooltip>
-                Once off: Payment + interest will be paid at once in full
+                Once off: Principal + interest will be paid at once in full
                 <hr style={{margin:'5px 0'}} />
                 monthly: Repayment will be split into monthly installments
               </Form.HelpText>

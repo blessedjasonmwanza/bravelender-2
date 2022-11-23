@@ -142,6 +142,11 @@ main {
   z-index: 999;
 }
 
+.swal2-styled.swal2-confirm {
+  background-color: #43a047 !important;
+  background: #43a047 !important;
+}
+
 /* MSC */
 
 .bg-white {
