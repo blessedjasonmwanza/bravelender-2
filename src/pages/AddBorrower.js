@@ -43,7 +43,7 @@ export default function AddBorrower() {
           <Form.Group controlId="nrc">
             <Form.ControlLabel>NRC number *</Form.ControlLabel>
             <Form.Control defaultValue={formData.nrcNumber} onChange={(value => setFormData(prev => ({...prev, nrcNumber: value})))} name="nrc" placeholder='Enter NRC ID number' />
-            <Form.HelpText tooltip>NRC number is required</Form.HelpText>
+            <Form.HelpText tooltip>National ID number or NRC number is required</Form.HelpText>
           </Form.Group>
           </Col>
         </Row>        

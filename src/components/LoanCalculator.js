@@ -116,7 +116,7 @@ export default function CompoundLoanCalculator() {
 
   return (
     <>
-      <Panel header="Loan Calculator &nbsp; &nbsp; &nbsp; &nbsp;" shaded collapsible className='bg-white panel'>
+      <Panel header="Loan Calculator &nbsp; &nbsp; &nbsp; &nbsp;" shaded className='bg-white panel'>
         {/* <Placeholder.Paragraph /> */}
         <hr />
         <Form layout="inline" fluid={true} 
